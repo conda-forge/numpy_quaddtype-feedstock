@@ -102,7 +102,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-numpy_quaddtype-green.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-numpy__quaddtype-green.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) |
 
 Installing numpy_quaddtype
 ==========================
