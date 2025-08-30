@@ -10,7 +10,7 @@ source:
   sha256: 57be7d7d848994f02809013920a8c712d495dd995a2d5a1be0fec76f51e2f45f
 
 build:
-  number: 1
+  number: 2
   skip: True  # [py<310 or py>=313]
   script: |
     cd quaddtype
