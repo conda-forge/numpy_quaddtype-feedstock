@@ -9,6 +9,8 @@ Package license: BSD-3-Clause
 
 Summary: Quad (128-bit) float dtype for numpy
 
+Development: https://github.com/numpy/numpy-user-dtypes
+
 Current build status
 ====================
 
@@ -48,6 +50,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_64_python3.13.____cp313</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=23732&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/numpy_quaddtype-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.13.____cp313" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_64_python3.10.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=23732&branchName=main">
@@ -66,6 +75,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=23732&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/numpy_quaddtype-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.12.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_python3.13.____cp313</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=23732&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/numpy_quaddtype-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.13.____cp313" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -89,6 +105,13 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/numpy_quaddtype-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>win_64_python3.13.____cp313</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=23732&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/numpy_quaddtype-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.13.____cp313" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -102,7 +125,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-numpy_quaddtype-green.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-numpy__quaddtype-green.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/numpy_quaddtype.svg)](https://anaconda.org/conda-forge/numpy_quaddtype) |
 
 Installing numpy_quaddtype
 ==========================

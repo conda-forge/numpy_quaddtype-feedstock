@@ -1,0 +1,71 @@
+schema_version: 1
+
+context:
+  name: numpy_quaddtype
+  pypi_name: numpy-quaddtype
+  version: 0.2.0
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
+    sha256: 4089b7fa247eecb0ebc3c436920407e75badf6bea25a101a9fe4e7a35ab71c9b
+
+build:
+  number: 0
+  script:
+    - if: unix
+      then:
+        - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+    - if: win
+      then:
+        - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
+        - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
+        - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
+    - ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+    - pkg-config
+    - cmake
+    - ninja
+    - make
+  host:
+    - python
+    - meson-python
+    - numpy
+    - pip
+    - setuptools
+  run:
+    - python
+    - numpy
+
+tests:
+- python:
+    imports:
+      - numpy_quaddtype
+    pip_check: true
+- script:
+    - pytest
+  files:
+    source:
+      - tests/
+  requirements:
+    run:
+      - pytest
+
+about:
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: Quad (128-bit) float dtype for numpy
+  homepage: https://github.com/numpy/numpy-user-dtypes
+  repository: https://github.com/numpy/numpy-user-dtypes
+
+extra:
+  recipe-maintainers:
+    - SwayamInSync
