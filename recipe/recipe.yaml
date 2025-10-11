@@ -3,7 +3,7 @@ schema_version: 1
 context:
   name: numpy_quaddtype
   pypi_name: numpy-quaddtype
-  version: 0.2.0
+  version: "0.2.1"
 
 package:
   name: ${{ name|lower }}
@@ -11,10 +11,10 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: 4089b7fa247eecb0ebc3c436920407e75badf6bea25a101a9fe4e7a35ab71c9b
+    sha256: b97c59515b6cca34e3a8bb7cab36e5b2dbf1e6a552b1548f67d2bbe92605d60b
 
 build:
-  number: 1
+  number: 0
   script:
     - if: unix
       then:
