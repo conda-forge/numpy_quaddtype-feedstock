@@ -35,6 +35,11 @@ requirements:
     - cmake
     - ninja
     - make
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_{{ target_platform }}
+        - numpy
   host:
     - python
     - meson-python
