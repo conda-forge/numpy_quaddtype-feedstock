@@ -39,18 +39,16 @@ requirements:
     - ${{ compiler('cxx') }}
     - cmake
     - make
+    - ninja
+    - pkg-config
     - if: build_platform != target_platform
       then:
         - python
         - cross-python_${{ target_platform }}
         - numpy
-        - ninja
-        - pkg-config
   host:
     - python
     - meson-python
-    - ninja
-    - pkg-config
     - numpy
     - pip
     - setuptools
