@@ -37,14 +37,14 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - ${{ compiler('cxx') }}
+    - cmake
+    - make
     - if: build_platform != target_platform
       then:
         - python
         - cross-python_${{ target_platform }}
         - numpy
         - ninja
-        - cmake
-        - make
         - pkg-config
   host:
     - python
