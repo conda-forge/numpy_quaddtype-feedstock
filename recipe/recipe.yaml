@@ -18,31 +18,39 @@ build:
   script:
     - if: unix
       then:
-        - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+        # - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+        - if: build_platform != target_platform
+          then:
+            - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+            - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt
+        - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"
+        - ${{ PYTHON }} -m pip install . -vv -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}
     - if: win
       then:
         - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
         - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
         - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
-    - ${{ PYTHON }} -m pip install . -vv
+        - ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - ${{ compiler('cxx') }}
-    - pkg-config
-    - cmake
-    - ninja
-    - make
     - if: build_platform != target_platform
       then:
         - python
         - cross-python_${{ target_platform }}
         - numpy
+        - ninja
+        - cmake
+        - make
+        - pkg-config
   host:
     - python
     - meson-python
+    - ninja
+    - pkg-config
     - numpy
     - pip
     - setuptools
