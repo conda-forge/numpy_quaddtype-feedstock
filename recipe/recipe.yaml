@@ -10,8 +10,10 @@ package:
   version: ${{ version }}
 
 source:
-  - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: b97c59515b6cca34e3a8bb7cab36e5b2dbf1e6a552b1548f67d2bbe92605d60b
+  # - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
+  #   sha256: b97c59515b6cca34e3a8bb7cab36e5b2dbf1e6a552b1548f67d2bbe92605d60b
+  - git: https://github.com/numpy/numpy-user-dtypes.git
+    branch: 0.2.x
 
 build:
   number: 1
@@ -19,6 +21,8 @@ build:
     - win
     - match(python, "!=3.13")
   script:
+    # if github is used as source:
+    - cd quaddtype
     - if: unix
       then:
         # - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
@@ -74,7 +78,9 @@ tests:
       - pytest
     files:
       source:
-        - tests/
+        # if github is used as source:
+        - quaddtype/tests/
+        # - tests/
     requirements:
       run:
         - pytest
