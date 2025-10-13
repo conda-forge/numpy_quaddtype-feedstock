@@ -17,22 +17,16 @@ source:
 
 build:
   number: 1
-  skip:
-    - win
-    - match(python, "!=3.13")
   script:
     # if github is used as source:
     - cd quaddtype
     - if: unix
       then:
-        # - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+        # taken from numpy feedstock to get cross-compilation working
         - if: build_platform != target_platform
           then:
             - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
             - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt
-            - echo "BEGIN: meson_cross_file.txt"
-            - cat ${CONDA_PREFIX}/meson_cross_file.txt
-            - echo "END: meson_cross_file.txt"
         - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"
         - ${{ PYTHON }} -m pip install . -vv -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}
     - if: win
@@ -67,7 +61,6 @@ requirements:
   run:
     - python
     - numpy
-    - sleef =3.8
 
 tests:
   - python:
