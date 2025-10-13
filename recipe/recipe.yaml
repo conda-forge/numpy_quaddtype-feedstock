@@ -3,7 +3,7 @@ schema_version: 1
 context:
   name: numpy_quaddtype
   pypi_name: numpy-quaddtype
-  version: "0.2.1"
+  version: "0.2.2"
 
 package:
   name: ${{ name|lower }}
@@ -11,36 +11,54 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: b97c59515b6cca34e3a8bb7cab36e5b2dbf1e6a552b1548f67d2bbe92605d60b
+    sha256: 9eec9003aab53fb2ea12482dd5b4c0ad2ddf8bc2b9d2dfd05acc2ea46466d762
+  # helpful for checking changes in the repo:
+  # - git: https://github.com/numpy/numpy-user-dtypes.git
+  #   branch: 0.2.x
 
 build:
   number: 0
   script:
+    # if repo is used as source:
+    # - cd quaddtype
     - if: unix
       then:
-        - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+        # taken from numpy feedstock to get cross-compilation working
+        - if: build_platform != target_platform
+          then:
+            - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
+            - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt
+        - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"
+        - ${{ PYTHON }} -m pip install . -vv -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}
     - if: win
       then:
         - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
         - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
         - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
-    - ${{ PYTHON }} -m pip install . -vv
+        - ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - ${{ compiler('cxx') }}
-    - pkg-config
     - cmake
-    - ninja
     - make
+    - ninja
+    - pkg-config
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
+        - sleef =3.8
   host:
     - python
     - meson-python
     - numpy
     - pip
     - setuptools
+    - sleef =3.8
   run:
     - python
     - numpy
@@ -55,6 +73,8 @@ tests:
     files:
       source:
         - tests/
+        # if repo is used as source:
+        # - quaddtype/tests/
     requirements:
       run:
         - pytest
