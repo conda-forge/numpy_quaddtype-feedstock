@@ -52,18 +52,18 @@ requirements:
         - python
         - cross-python_${{ target_platform }}
         - numpy
-        # - sleef =3.8
+        - sleef =3.8
   host:
     - python
     - meson-python
     - numpy
     - pip
     - setuptools
-    # - sleef =3.8
+    - sleef =3.8
   run:
     - python
     - numpy
-    # - sleef =3.8
+    - sleef =3.8
 
 tests:
   - python:
