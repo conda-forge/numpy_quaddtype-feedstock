@@ -17,7 +17,7 @@ source:
   #   branch: 0.2.x
 
 build:
-  number: 0
+  number: 1
   script:
     # if repo is used as source:
     # - cd quaddtype
