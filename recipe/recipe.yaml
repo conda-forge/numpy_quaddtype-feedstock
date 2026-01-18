@@ -1,8 +1,6 @@
 schema_version: 1
 
 context:
-  name: numpy_quaddtype
-  pypi_name: numpy-quaddtype
   version: "1.0.0"
 
 package:
