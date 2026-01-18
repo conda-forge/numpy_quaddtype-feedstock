@@ -3,24 +3,22 @@ schema_version: 1
 context:
   name: numpy_quaddtype
   pypi_name: numpy-quaddtype
-  version: "0.2.2"
+  version: "1.0.0"
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: 9eec9003aab53fb2ea12482dd5b4c0ad2ddf8bc2b9d2dfd05acc2ea46466d762
-  # helpful for checking changes in the repo:
-  # - git: https://github.com/numpy/numpy-user-dtypes.git
-  #   branch: 0.2.x
+  # For testing: use git repo instead of PyPI release
+  - git: https://github.com/numpy/numpy-quaddtype.git
+    branch: main
+  # - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
+  #   sha256: <UPDATE_SHA256_WHEN_RELEASED>
 
 build:
-  number: 1
+  number: 0
   script:
-    # if repo is used as source:
-    # - cd quaddtype
     - if: unix
       then:
         # taken from numpy feedstock to get cross-compilation working
@@ -50,18 +48,18 @@ requirements:
       then:
         - python
         - cross-python_${{ target_platform }}
-        - numpy
-        - sleef =3.8
+        - numpy >=2.4
+        - sleef =3.9
   host:
     - python
     - meson-python
-    - numpy
+    - numpy >=2.4
     - pip
     - setuptools
-    - sleef =3.8
+    - sleef =3.9
   run:
     - python
-    - numpy
+    - numpy >=2.4
 
 tests:
   - python:
@@ -73,8 +71,6 @@ tests:
     files:
       source:
         - tests/
-        # if repo is used as source:
-        # - quaddtype/tests/
     requirements:
       run:
         - pytest
@@ -82,9 +78,9 @@ tests:
 about:
   license: BSD-3-Clause
   license_file: LICENSE
-  summary: Quad (128-bit) float dtype for numpy
-  homepage: https://github.com/numpy/numpy-user-dtypes
-  repository: https://github.com/numpy/numpy-user-dtypes
+  summary: A cross-platform Quad (128-bit) float Data-Type for NumPy.
+  homepage: https://github.com/numpy/numpy-quaddtype
+  repository: https://github.com/numpy/numpy-quaddtype
 
 extra:
   recipe-maintainers:
