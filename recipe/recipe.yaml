@@ -18,6 +18,8 @@ source:
 
 build:
   number: 0
+  skip:
+    - py < 311
   script:
     - if: unix
       then:
