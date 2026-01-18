@@ -6,7 +6,7 @@ context:
   version: "1.0.0"
 
 package:
-  name: ${{ name|lower }}
+  name: numpy_quaddtype
   version: ${{ version }}
 
 source:
@@ -14,11 +14,12 @@ source:
   # Updated: tlfloat disabled in vendored SLEEF build
   - git: https://github.com/SwayamInSync/numpy-quaddtype.git
     branch: sleef-3.9
-  # - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
+  # - url: https://pypi.org/packages/source/n/numpy-quaddtype/numpy_quaddtype-${{ version }}.tar.gz
   #   sha256: <UPDATE_SHA256_WHEN_RELEASED>
 
 build:
   number: 0
+  skip: match(python, "<3.11")
   script:
     - if: unix
       then:
@@ -52,14 +53,14 @@ requirements:
         - numpy >=2.4
         - sleef =3.9
   host:
-    - python >=3.11
+    - python
     - meson-python
     - numpy >=2.4
     - pip
     - setuptools
     - sleef =3.9
   run:
-    - python >=3.11
+    - python
     - numpy >=2.4
 
 tests:
