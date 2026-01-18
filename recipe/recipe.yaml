@@ -18,8 +18,6 @@ source:
 
 build:
   number: 0
-  skip:
-    - py < 311
   script:
     - if: unix
       then:
@@ -53,14 +51,14 @@ requirements:
         - numpy >=2.4
         - sleef =3.9
   host:
-    - python
+    - python >=3.11
     - meson-python
     - numpy >=2.4
     - pip
     - setuptools
     - sleef =3.9
   run:
-    - python
+    - python >=3.11
     - numpy >=2.4
 
 tests:
