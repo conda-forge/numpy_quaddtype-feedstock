@@ -3,13 +3,13 @@ About numpy_quaddtype-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/numpy_quaddtype-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/numpy/numpy-user-dtypes
+Home: https://github.com/numpy/numpy-quaddtype
 
 Package license: BSD-3-Clause
 
-Summary: Quad (128-bit) float dtype for numpy
+Summary: A cross-platform Quad (128-bit) float Data-Type for NumPy.
 
-Development: https://github.com/numpy/numpy-user-dtypes
+Development: https://github.com/numpy/numpy-quaddtype
 
 Current build status
 ====================
