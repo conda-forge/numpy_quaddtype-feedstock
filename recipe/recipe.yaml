@@ -11,8 +11,8 @@ package:
 
 source:
   # For testing: use git repo instead of PyPI release
-  - git: https://github.com/numpy/numpy-quaddtype.git
-    branch: main
+  - git: https://github.com/SwayamInSync/numpy-quaddtype.git
+    branch: sleef-3.9
   # - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
   #   sha256: <UPDATE_SHA256_WHEN_RELEASED>
 
