@@ -11,6 +11,7 @@ package:
 
 source:
   # For testing: use git repo instead of PyPI release
+  # Updated: tlfloat disabled in vendored SLEEF build
   - git: https://github.com/SwayamInSync/numpy-quaddtype.git
     branch: sleef-3.9
   # - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/numpy_quaddtype-${{ version }}.tar.gz
