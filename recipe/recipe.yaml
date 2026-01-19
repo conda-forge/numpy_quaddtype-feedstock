@@ -17,25 +17,29 @@ source:
   #   branch: 0.2.x
 
 build:
-  number: 1
+  number: 2
   script:
     # if repo is used as source:
     # - cd quaddtype
+    - mkdir builddir
     - if: unix
-      then:
-        # taken from numpy feedstock to get cross-compilation working
-        - if: build_platform != target_platform
-          then:
-            - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
-            - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt
-        - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"
-        - ${{ PYTHON }} -m pip install . -vv -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}
+      then: |
+        ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
+        ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
+        ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
     - if: win
-      then:
-        - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
-        - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
-        - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
-        - ${{ PYTHON }} -m pip install . -vv
+      then: |
+        set "CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS"
+        set "CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS"
+        ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
+        ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
+        :: from numpy feedstock:
+        :: `pip install dist\numpy*.whl` does not work on windows,
+        :: so use a loop; there's only one wheel in dist/ anyway
+        for /f %%f in ('dir /b /S .\dist') do (
+          pip install %%f
+          if %ERRORLEVEL% neq 0 exit 1
+        )
 
 requirements:
   build:
@@ -45,19 +49,18 @@ requirements:
     - cmake
     - make
     - ninja
-    - pkg-config
-    - if: build_platform != target_platform
+    - if: build_platform != host_platform
       then:
         - python
-        - cross-python_${{ target_platform }}
+        - cross-python_${{ host_platform }}
         - numpy
         - sleef =3.8
   host:
     - python
+    - python-build
     - meson-python
     - numpy
     - pip
-    - setuptools
     - sleef =3.8
   run:
     - python
