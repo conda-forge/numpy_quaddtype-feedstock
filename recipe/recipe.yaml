@@ -27,12 +27,22 @@ build:
         - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
     - if: win
       then:
-        - ${{ PYTHON }} -m mesonbuild.mesonmain setup builddir ^
-            -Dc_args=/DDISABLE_QUADBLAS ^
-            -Dcxx_args=/DDISABLE_QUADBLAS ^
-            %MESON_ARGS%
+        - set "CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS"
+        - set "CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS"
+        - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
     - ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
-    - ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
+    - if: unix
+      then:
+        - ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
+    - if: win
+      then:
+        # from numpy feedstock:
+        # `pip install dist\numpy*.whl` does not work on windows,
+        # so use a loop; there's only one wheel in dist/ anyway
+        - for /f %%f in ('dir /b /S .\dist') do (
+            pip install %%f
+            if %ERRORLEVEL% neq 0 exit 1
+          )
 
 requirements:
   build:
