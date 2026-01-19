@@ -17,25 +17,19 @@ source:
   #   branch: 0.2.x
 
 build:
-  number: 1
+  number: 2
   script:
     # if repo is used as source:
     # - cd quaddtype
     - if: unix
       then:
-        # taken from numpy feedstock to get cross-compilation working
-        - if: build_platform != target_platform
-          then:
-            - export PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
-            - echo "python = '${PREFIX}/bin/python'" >> ${CONDA_PREFIX}/meson_cross_file.txt
-        - MESON_ARGS_REDUCED="$(echo $MESON_ARGS | sed 's/--buildtype release //g')"
-        - ${{ PYTHON }} -m pip install . -vv -Csetup-args=${MESON_ARGS_REDUCED// / -Csetup-args=}
+        - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
     - if: win
       then:
         - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
         - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
         - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
-        - ${{ PYTHON }} -m pip install . -vv
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
@@ -46,10 +40,10 @@ requirements:
     - make
     - ninja
     - pkg-config
-    - if: build_platform != target_platform
+    - if: build_platform != host_platform
       then:
         - python
-        - cross-python_${{ target_platform }}
+        - cross-python_${{ host_platform }}
         - numpy
         - sleef =3.8
   host:
