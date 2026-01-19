@@ -41,7 +41,6 @@ requirements:
     - cmake
     - make
     - ninja
-    - pkg-config
     - if: build_platform != host_platform
       then:
         - python
@@ -50,6 +49,7 @@ requirements:
         - sleef =3.8
   host:
     - python
+    - python-build
     - meson-python
     - numpy
     - pip
