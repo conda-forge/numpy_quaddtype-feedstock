@@ -31,7 +31,7 @@ build:
         - set CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS
         - set CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS
     - ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
-    - ${{ PYTHON }} -m pip install dist/numpy-quaddtype*.whl
+    - ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
 
 requirements:
   build:
