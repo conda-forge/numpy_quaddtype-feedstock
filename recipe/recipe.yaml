@@ -27,9 +27,10 @@ build:
         - ${{ PYTHON }} -m mesonbuild.mesonmain setup $MESON_ARGS builddir
     - if: win
       then:
-        - set "CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS"
-        - set "CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS"
-        - ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
+        - ${{ PYTHON }} -m mesonbuild.mesonmain setup builddir ^
+            -Dc_args=/DDISABLE_QUADBLAS ^
+            -Dcxx_args=/DDISABLE_QUADBLAS ^
+            %MESON_ARGS%
     - ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
     - ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
 
