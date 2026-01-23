@@ -10,10 +10,10 @@ package:
 source:
   # For testing: use git repo instead of PyPI release
   # Updated: tlfloat disabled in vendored SLEEF build
-  - git: https://github.com/numpy/numpy-quaddtype.git
-    branch: main
-  # - url: https://pypi.org/packages/source/n/numpy-quaddtype/numpy_quaddtype-${{ version }}.tar.gz
-  #   sha256: <UPDATE_SHA256_WHEN_RELEASED>
+  # - git: https://github.com/numpy/numpy-quaddtype.git
+  #   branch: main
+  - url: https://pypi.org/packages/source/n/numpy-quaddtype/numpy_quaddtype-${{ version }}.tar.gz
+    sha256: e2844e879dd6f4b44971e318d17cf2c5fa1f9fd2f04d0a50fe8813139e6dcf29
 
 build:
   number: 0
