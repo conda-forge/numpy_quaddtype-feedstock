@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.0.0"
+  version: "1.1.0"
 
 package:
   name: numpy_quaddtype
@@ -12,10 +12,10 @@ source:
   # - git: https://github.com/numpy/numpy-quaddtype.git
   #   branch: main
   - url: https://pypi.org/packages/source/n/numpy-quaddtype/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: e2844e879dd6f4b44971e318d17cf2c5fa1f9fd2f04d0a50fe8813139e6dcf29
+    sha256: 2b69c8032eb3d756944bfb11421687d8cec80ac2308be8574ea6efc9ed7a19d3
 
 build:
-  number: 2
+  number: 0
   skip: match(python, "<3.11")
   script:
     - mkdir builddir
