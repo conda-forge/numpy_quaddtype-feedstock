@@ -57,6 +57,9 @@ requirements:
     - numpy >=2.5.3
     - pip
     - sleef =3.9.0
+    - if: osx
+      then:
+        - llvm-openmp
   run:
     - python
     - numpy >=2.5.3
