@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.0.0"
+  version: "1.1.0"
 
 package:
   name: numpy_quaddtype
@@ -12,11 +12,11 @@ source:
   # - git: https://github.com/numpy/numpy-quaddtype.git
   #   branch: main
   - url: https://pypi.org/packages/source/n/numpy-quaddtype/numpy_quaddtype-${{ version }}.tar.gz
-    sha256: e2844e879dd6f4b44971e318d17cf2c5fa1f9fd2f04d0a50fe8813139e6dcf29
+    sha256: 2b69c8032eb3d756944bfb11421687d8cec80ac2308be8574ea6efc9ed7a19d3
 
 build:
-  number: 2
-  skip: match(python, "<3.11")
+  number: 0
+  skip: match(python, "<3.12")
   script:
     - mkdir builddir
     - if: unix
@@ -26,8 +26,6 @@ build:
         ${{ PYTHON }} -m pip install dist/numpy_quaddtype*.whl
     - if: win
       then: |
-        set "CFLAGS=%CFLAGS% /DDISABLE_QUADBLAS"
-        set "CXXFLAGS=%CXXFLAGS% /DDISABLE_QUADBLAS"
         ${{ PYTHON }} -m mesonbuild.mesonmain setup %MESON_ARGS% builddir
         ${{ PYTHON }} -m build --wheel --no-isolation --skip-dependency-check -Cbuilddir=builddir
         :: from numpy feedstock:
@@ -50,18 +48,21 @@ requirements:
       then:
         - python
         - cross-python_${{ host_platform }}
-        - numpy >=2.4
-        - sleef =3.9
+        - numpy >=2.5.3
+        - sleef =3.9.0
   host:
     - python
     - python-build
-    - meson-python
-    - numpy >=2.4
+    - meson-python >=0.18.0
+    - numpy >=2.5.3
     - pip
-    - sleef =3.9
+    - sleef =3.9.0
+    - if: osx
+      then:
+        - llvm-openmp
   run:
     - python
-    - numpy >=2.4
+    - numpy >=2.5.3
 
 tests:
   - python:
@@ -77,6 +78,8 @@ tests:
       run:
         - pytest
         - mpmath
+        - pytest-run-parallel
+        - pandas
 
 about:
   license: BSD-3-Clause
@@ -88,3 +91,4 @@ about:
 extra:
   recipe-maintainers:
     - SwayamInSync
+    - JaRoSchm
